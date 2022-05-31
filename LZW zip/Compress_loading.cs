@@ -78,20 +78,19 @@ namespace LZW_zip
                 }
                 compressedFile.Close();
                 LZW.ResetDictionary();
-                files.Clear();
-
 
                 this.Close();
 
-
-                float compressed_size = (float)fileInfo.Length / 1024 / 1024;
-                float initial_size = (float)LZW.last_initial_size / 1024 / 1024;
-                float coefficient = 100 - (compressed_size / initial_size) * 100;
+                double compressed_size = Math.Round((double)fileInfo.Length / 1024 / 1024, 2);
+                double initial_size = Math.Round((double)LZW.last_initial_size / 1024 / 1024, 2);
+                double coefficient = Math.Round(100 - (compressed_size / initial_size) * 100, 2);
 
                 if (files.Count > 1)
                     sizes_label.Text = $"Размер исходных файлов: {initial_size} МБ\nРазмер архива: {compressed_size} МБ\nКоэффициент сжатия: {coefficient} %";
                 else
                     sizes_label.Text = $"Размер исходного файла: {initial_size} МБ\nРазмер архива: {compressed_size} МБ\nКоэффициент сжатия: {coefficient} %";
+
+                files.Clear();
             }));
         }
     }

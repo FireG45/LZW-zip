@@ -17,7 +17,6 @@ namespace LZW_zip
         public static int last_initial_size { get; private set; }
         public static int last_compressed_size { get; private set; }
 
-
         static LZW()
         {
             for (int i = System.Char.MinValue; i < System.Char.MaxValue; i++)
@@ -76,7 +75,6 @@ namespace LZW_zip
         {
             StreamReader reader = new StreamReader(file);
 
-            int readSize = 1;
             string c = "";
             string s = "";
 
@@ -84,12 +82,9 @@ namespace LZW_zip
 
             int fileLength = (int)file.Length;
 
-            //progressBar.Maximum = fileLength;
-
-
             last_initial_size += fileLength;
 
-            for (int i = 0; i < fileLength; i += readSize)
+            for (int i = 0; i < fileLength; i++)
             {
                 try
                 {
@@ -110,7 +105,6 @@ namespace LZW_zip
                     }
 
                     progressBar.Value = i * 100 / fileLength;
-                    //progressBar.PerformStep();
                     compress_Form.Update();
                 }
                 catch (Exception ex)
@@ -124,15 +118,11 @@ namespace LZW_zip
 
         public static void Decompress(StreamReader reader, StreamWriter decompressedFileWriter)
         {
-
-            progress = 0;
-
             foreach (string s in dictioanry.Keys)
                 list_dictioanry.Add(s);
 
             progress = 0;
 
-            int readSize = 1;
             int c = 0;
             int p = 0;
             string prev = "";
@@ -141,7 +131,7 @@ namespace LZW_zip
             decompressedFileWriter.Write(list_dictioanry[p]);
             prev = list_dictioanry[p];
 
-            for (int i = 0; ; i += readSize)
+            for (int i = 0; ; i++)
             {
                 var r = reader.ReadLine();
 

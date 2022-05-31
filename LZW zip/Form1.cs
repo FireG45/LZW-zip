@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LZW_zip
@@ -49,7 +48,7 @@ namespace LZW_zip
 
             foreach (var item in files)
             {
-                if(Path.GetExtension(item).ToUpper() != ".TXT")
+                if (Path.GetExtension(item).ToUpper() != ".TXT")
                 {
                     MessageBox.Show("Неверный формат файла");
                     return;
@@ -70,17 +69,19 @@ namespace LZW_zip
                 return;
 
             FileInfo fileInfo = new FileInfo(saveFileDialog1.FileName);
-            Compress_Form compress_Form = new Compress_Form(ref files, compressedFile, sender,ref fileInfo, ref sizes_label);
+            Compress_Form compress_Form = new Compress_Form(ref files, compressedFile, sender, ref fileInfo, ref sizes_label);
             LZW.SetForm(ref compress_Form);
             compress_Form.Show();
 
             listView1.Clear();
-           
+
         }
 
         private void decompress_button_Click(object sender, EventArgs e)
         {
             string archiveFilePath;
+
+            sizes_label.Text = "";
 
             openFileDialog1.InitialDirectory = "c:\\";
             openFileDialog1.Filter = "Сжатые LZW файлы (*.lzw)|*.lzw";
